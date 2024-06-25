@@ -6,32 +6,36 @@ import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper
-    (context, "FollowUp", null, 1) {
+    (context, "FollowUp", null, 2) {
 
     override fun onCreate(db: SQLiteDatabase?) {
 
         try {
             db?.execSQL(
-                "CREATE TABLE followUp (product_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                        "product_date TEXT NOT NULL,"+
-                        "product_name TEXT NOT NULL," +
-                        "product_amount INTEGER NOT NULL," +
-                        "product_sales INTEGER NOT NULL," +
-                        "product_expense INTEGER NOT NULL );"
+                "CREATE TABLE followUp (product_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "product_date TEXT," +
+                        "product_name TEXT," +
+                        "product_amount INTEGER," +
+                        "product_sales INTEGER," +
+                        "product_expense INTEGER," +
+                        "product_earning INTEGER);"
             )
         } catch (e: SQLiteException) {
             throw e
         }
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         try {
-            db?.execSQL("DROP TABLE IF EXISTS follow_up")
-            onCreate(db)
+            if (oldVersion < newVersion) {
+                db?.execSQL("ALTER TABLE followUp ADD COLUMN product_earning INTEGER NOT NULL DEFAULT 0")
+            } else {
+                db?.execSQL("DROP TABLE IF EXISTS follow_up")
+                onCreate(db)
+            }
         } catch (e: SQLiteException) {
             throw e
         }
-
     }
 
 }

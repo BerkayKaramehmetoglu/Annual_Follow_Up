@@ -1,6 +1,5 @@
 package com.example.annual_follow_up.sqlite
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -21,12 +20,13 @@ class FollowUpDAO {
 
         db.use {
             val getDate = getCurrentDate()
-            val values = ContentValues(4).apply {
+            val values = ContentValues(6).apply {
                 put("product_date", getDate)
-                put("product_name", productName)
+                put("product_name", productName.uppercase(Locale.getDefault()))
                 put("product_amount", productAmount)
                 put("product_sales", productSales)
                 put("product_expense", productExpense)
+                put("product_earning", productSales.minus(productExpense))
             }
             it.insertOrThrow("followUp", null, values)
         }
@@ -44,7 +44,7 @@ class FollowUpDAO {
         val db = vt.readableDatabase
 
         db.use { database ->
-            val cursor = database.rawQuery("SELECT * FROM FollowUp LIMIT 2", null)
+            val cursor = database.rawQuery("SELECT * FROM FollowUp", null)
 
             cursor.use { cur ->
                 while (cur.moveToNext()) {
@@ -54,7 +54,8 @@ class FollowUpDAO {
                         cur.getString(cur.getColumnIndexOrThrow("product_name")),
                         cur.getInt(cur.getColumnIndexOrThrow("product_amount")),
                         cur.getInt(cur.getColumnIndexOrThrow("product_sales")),
-                        cur.getInt(cur.getColumnIndexOrThrow("product_expense"))
+                        cur.getInt(cur.getColumnIndexOrThrow("product_expense")),
+                        cur.getInt(cur.getColumnIndexOrThrow("product_earning"))
                     )
                     followUpList.add(followUp)
                 }

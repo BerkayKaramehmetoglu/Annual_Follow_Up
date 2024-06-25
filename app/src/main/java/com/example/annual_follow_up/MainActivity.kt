@@ -25,19 +25,16 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_entry_product
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         val vt = DatabaseHelper(this)
-
-        //FollowUpDAO().insertProducts(vt,"Hazelnut",4,120,50)
 
         val deneme = FollowUpDAO().allSelectProducts(vt)
 
@@ -48,8 +45,8 @@ class MainActivity : AppCompatActivity() {
             Log.e("Product Amount",(k.productAmount.toString()))
             Log.e("Product Sales",(k.productSales.toString()))
             Log.e("Product Expense",(k.productExpense.toString()))
+            Log.e("Product Earning",(k.productEarning.toString()))
         }
-
 
     }
 }

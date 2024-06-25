@@ -2,5 +2,11 @@
     <string name="app_name">Annual_Follow_Up</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_entry_product">Entry Product</string>
+
+    <string name="entry_product_name">Product Name</string>
+    <string name="entry_product_amount">Product Amount</string>
+    <string name="entry_product_sales">Product Sales</string>
+    <string name="entry_product_expense">Product Expense</string>
+    <string name="entry_product_button">SUBMIT</string>
 </resources>

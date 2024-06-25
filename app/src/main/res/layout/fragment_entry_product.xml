@@ -11,6 +11,7 @@
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,36 +23,36 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
-            android:text="Name" />
+            android:hint= "@string/entry_product_name"/>
 
         <EditText
-            android:id="@+id/editTextText2"
+            android:id="@+id/productAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text"
-            android:text="Name" />
+            android:inputType="numberDecimal"
+            android:hint="@string/entry_product_amount"/>
 
         <EditText
-            android:id="@+id/editTextText3"
+            android:id="@+id/productSales"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text"
-            android:text="Name" />
+            android:inputType="numberDecimal"
+            android:hint="@string/entry_product_sales"/>
 
         <EditText
-            android:id="@+id/editTextText4"
+            android:id="@+id/productExpense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text"
-            android:text="Name" />
+            android:inputType="numberDecimal"
+            android:hint="@string/entry_product_expense"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="@string/entry_product_button" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

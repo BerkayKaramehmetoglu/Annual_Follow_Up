@@ -7,6 +7,7 @@ data class FollowUp(
     var productName: String,
     var productAmount: Int,
     var productSales: Int,
-    var productExpense: Int
+    var productExpense: Int,
+    var productEarning: Int,
 ) {
 }
