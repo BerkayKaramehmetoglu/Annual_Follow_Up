@@ -41,9 +41,9 @@ class EntryProductFragment : Fragment() {
 
         binding.submit.setOnClickListener {
 
-            if (!checkLayout(it)) {
-                return@setOnClickListener
-            }
+            if (!checkLayoutEmpty(it)) return@setOnClickListener
+
+            if (!checkLayoutLength(it)) return@setOnClickListener
 
             val productName = binding.productName.text.toString()
             val productAmount = binding.productAmount.text.toString().toInt()
@@ -59,13 +59,13 @@ class EntryProductFragment : Fragment() {
                     productExpense
                 )
             }
-            
+
             snackBar(it, "Registration completed")
         }
     }
 
 
-    private fun checkLayout(view: View): Boolean {
+    private fun checkLayoutEmpty(view: View): Boolean {
         return when {
             binding.productName.text.isNullOrBlank() -> {
                 snackBar(view, "Product name cannot be empty")
@@ -84,6 +84,33 @@ class EntryProductFragment : Fragment() {
 
             binding.productExpense.text.isNullOrBlank() -> {
                 snackBar(view, "Product expense cannot be empty")
+                false
+            }
+
+            else -> true
+        }
+    }
+
+    private fun checkLayoutLength(view: View): Boolean {
+        return when {
+
+            binding.productName.text!!.length > 20 -> {
+                snackBar(view, "The length of the product name cannot be longer than 20")
+                false
+            }
+
+            binding.productAmount.text!!.length > 3 -> {
+                snackBar(view, "Product ton quantity cannot exceed 3 digits")
+                false
+            }
+
+            binding.productSales.text!!.length > 9 -> {
+                snackBar(view, "Product sales amount cannot exceed million")
+                false
+            }
+
+            binding.productExpense.text!!.length > 9 -> {
+                snackBar(view, "Product expense amount cannot exceed million")
                 false
             }
 
