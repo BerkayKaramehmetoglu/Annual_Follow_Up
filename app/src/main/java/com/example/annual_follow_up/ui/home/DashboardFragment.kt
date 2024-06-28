@@ -1,4 +1,4 @@
-package com.example.annual_follow_up.ui.past_product
+package com.example.annual_follow_up.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
