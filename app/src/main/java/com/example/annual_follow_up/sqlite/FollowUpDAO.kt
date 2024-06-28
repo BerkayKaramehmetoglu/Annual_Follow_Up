@@ -1,12 +1,16 @@
 package com.example.annual_follow_up.sqlite
 
 import android.content.ContentValues
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.Date
 
 class FollowUpDAO {
 
+    private val _allProducts = MutableLiveData<List<FollowUp>>()
+    val allProducts: LiveData<List<FollowUp>> get() = _allProducts
 
     fun insertProducts(
         vt: DatabaseHelper,
@@ -31,6 +35,7 @@ class FollowUpDAO {
             it.insertOrThrow("followUp", null, values)
         }
 
+        _allProducts.postValue(allSelectProducts(vt))
     }
 
     private fun getCurrentDate(): String {
@@ -39,12 +44,12 @@ class FollowUpDAO {
         return dateFormat.format(date)
     }
 
-    fun allSelectProducts(vt: DatabaseHelper): ArrayList<FollowUp> {
+    fun allSelectProducts(vt: DatabaseHelper): List<FollowUp> {
         val followUpList = ArrayList<FollowUp>()
         val db = vt.readableDatabase
 
         db.use { database ->
-            val cursor = database.rawQuery("SELECT * FROM FollowUp", null)
+            val cursor = database.rawQuery("SELECT * FROM FollowUp ORDER BY product_id DESC", null)
 
             cursor.use { cur ->
                 while (cur.moveToNext()) {

@@ -1,6 +1,8 @@
 package com.example.annual_follow_up.ui.past_product
 
+import android.app.Application
 import android.content.Context
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,25 +10,19 @@ import com.example.annual_follow_up.sqlite.DatabaseHelper
 import com.example.annual_follow_up.sqlite.FollowUp
 import com.example.annual_follow_up.sqlite.FollowUpDAO
 
-class PastProductViewModel : ViewModel() {
-    private val _products = MutableLiveData<List<FollowUp>>()
-    val products: LiveData<List<FollowUp>> get() = _products
+class PastProductViewModel(application: Application) : AndroidViewModel(application) {
 
-    private lateinit var followUpDAO: FollowUpDAO
+    private val dbHelper: DatabaseHelper = DatabaseHelper(application)
+    private val followUpDao: FollowUpDAO = FollowUpDAO()
 
-    fun init(context: Context) {
-        val dbHelper = DatabaseHelper(context)
-        followUpDAO = FollowUpDAO()
-        loadProducts(dbHelper)
+    val allProducts: LiveData<List<FollowUp>> get() = followUpDao.allProducts
+
+    init {
+        refreshProducts()
     }
 
-    private fun loadProducts(dbHelper: DatabaseHelper) {
-        val productList = followUpDAO.allSelectProducts(dbHelper)
-        _products.postValue(productList)
-    }
-
-    fun refreshProducts(context: Context) {
-        val dbHelper = DatabaseHelper(context)
-        loadProducts(dbHelper)
+    fun refreshProducts() {
+        val products = followUpDao.allSelectProducts(dbHelper)
+        (followUpDao.allProducts as MutableLiveData).postValue(products)
     }
 }

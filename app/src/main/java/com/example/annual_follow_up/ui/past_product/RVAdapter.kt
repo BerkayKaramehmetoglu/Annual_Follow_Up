@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.annual_follow_up.R
 import com.example.annual_follow_up.sqlite.FollowUp
@@ -54,6 +55,23 @@ class RVAdapter(private val context: Context, private val getAllProducts: ArrayL
         holder.productExpense.text = getAllProduct.productExpense.toString()
         holder.productEarning.text = getAllProduct.productEarning.toString()
 
+        setProductEarningColor(holder.productEarning, getAllProduct.productEarning)
+
+    }
+
+    fun updateProducts(newProducts: List<FollowUp>) {
+        getAllProducts.clear()
+        getAllProducts.addAll(newProducts)
+        notifyDataSetChanged()
+    }
+
+    private fun setProductEarningColor(productEarningView: TextView, productEarning: Int) {
+        val color = when {
+            productEarning < 0 -> ContextCompat.getColor(context, R.color.red)
+            productEarning == 0 -> ContextCompat.getColor(context, R.color.black)
+            else -> ContextCompat.getColor(context, R.color.green)
+        }
+        productEarningView.setTextColor(color)
     }
 
 }

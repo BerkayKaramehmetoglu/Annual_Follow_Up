@@ -9,4 +9,11 @@
     <string name="entry_product_sales">Product Sales</string>
     <string name="entry_product_expense">Product Expense</string>
     <string name="entry_product_button">SUBMIT</string>
+
+    <string name="past_product_date">Date:</string>
+    <string name="past_product_name">Name:</string>
+    <string name="past_product_amount">Amount (Tone):</string>
+    <string name="past_product_sales">Sales:</string>
+    <string name="past_product_expense">Expense:</string>
+    <string name="past_product_earning">Earning:</string>
 </resources>
