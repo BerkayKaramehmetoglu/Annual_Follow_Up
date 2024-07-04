@@ -1,5 +1,3 @@
-package com.example.annual_follow_up.ui.past_product
-
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,59 +8,41 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.annual_follow_up.R
 import com.example.annual_follow_up.sqlite.FollowUp
 
-class RVAdapter(private val context: Context, private val getAllProducts: ArrayList<FollowUp>) :
-    RecyclerView.Adapter<RVAdapter.cardView>() {
+class RVAdapter(
+    private val context: Context,
+    private var getAllProducts: List<FollowUp>
+) :
+    RecyclerView.Adapter<RVAdapter.CardViewHolder>() {
 
-    inner class cardView(view: View) : RecyclerView.ViewHolder(view) {
-
-        var productDate: TextView
-        var productName: TextView
-        var productAmount: TextView
-        var productSales: TextView
-        var productExpense: TextView
-        var productEarning: TextView
-
-        init {
-            productDate = view.requireViewById(R.id.productDate)
-            productName = view.requireViewById(R.id.productName)
-            productAmount = view.requireViewById(R.id.productAmount)
-            productSales = view.requireViewById(R.id.productSales)
-            productExpense = view.requireViewById(R.id.productExpense)
-            productEarning = view.requireViewById(R.id.productEarning)
-        }
-
+    inner class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val productDate: TextView = view.findViewById(R.id.productDate)
+        val productName: TextView = view.findViewById(R.id.productName)
+        val productAmount: TextView = view.findViewById(R.id.productAmount)
+        val productSales: TextView = view.findViewById(R.id.productSales)
+        val productExpense: TextView = view.findViewById(R.id.productExpense)
+        val productEarning: TextView = view.findViewById(R.id.productEarning)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): cardView {
-
-        val design = LayoutInflater.from(context).inflate(R.layout.past_product_card, parent, false)
-
-        return cardView(design)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
+        val view = LayoutInflater.from(context).inflate(R.layout.past_product_card, parent, false)
+        return CardViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return getAllProducts.size
     }
 
-    override fun onBindViewHolder(holder: cardView, position: Int) {
+    override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
+        val product = getAllProducts[position]
 
-        val getAllProduct = getAllProducts[position]
+        holder.productDate.text = product.productDate
+        holder.productName.text = product.productName
+        holder.productAmount.text = product.productAmount.toString()
+        holder.productSales.text = product.productSales.toString()
+        holder.productExpense.text = product.productExpense.toString()
+        holder.productEarning.text = product.productEarning.toString()
 
-        holder.productDate.text = getAllProduct.productDate
-        holder.productName.text = getAllProduct.productName
-        holder.productAmount.text = getAllProduct.productAmount.toString()
-        holder.productSales.text = getAllProduct.productSales.toString()
-        holder.productExpense.text = getAllProduct.productExpense.toString()
-        holder.productEarning.text = getAllProduct.productEarning.toString()
-
-        setProductEarningColor(holder.productEarning, getAllProduct.productEarning)
-
-    }
-
-    fun updateProducts(newProducts: List<FollowUp>) {
-        getAllProducts.clear()
-        getAllProducts.addAll(newProducts)
-        notifyDataSetChanged()
+        setProductEarningColor(holder.productEarning, product.productEarning)
     }
 
     private fun setProductEarningColor(productEarningView: TextView, productEarning: Int) {
@@ -73,5 +53,4 @@ class RVAdapter(private val context: Context, private val getAllProducts: ArrayL
         }
         productEarningView.setTextColor(color)
     }
-
 }

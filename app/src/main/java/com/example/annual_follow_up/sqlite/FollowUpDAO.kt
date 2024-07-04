@@ -9,9 +9,6 @@ import java.util.Date
 
 class FollowUpDAO {
 
-    private val _allProducts = MutableLiveData<List<FollowUp>>()
-    val allProducts: LiveData<List<FollowUp>> get() = _allProducts
-
     fun insertProducts(
         vt: DatabaseHelper,
         productName: String,
@@ -34,8 +31,6 @@ class FollowUpDAO {
             }
             it.insertOrThrow("followUp", null, values)
         }
-
-        _allProducts.postValue(allSelectProducts(vt))
     }
 
     private fun getCurrentDate(): String {

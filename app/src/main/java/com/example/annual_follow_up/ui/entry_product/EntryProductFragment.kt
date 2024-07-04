@@ -121,4 +121,5 @@ class EntryProductFragment : Fragment() {
     fun snackBar(view: View, text: String) {
         Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show()
     }
+
 }
