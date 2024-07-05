@@ -63,4 +63,23 @@ class FollowUpDAO {
         }
         return followUpList
     }
+
+    fun totalProduct(vt: DatabaseHelper): Int {
+
+        var count = 0
+
+        val db = vt.readableDatabase
+
+        db.use { database ->
+            val cursor = database.rawQuery("SELECT COUNT(*) FROM FollowUp", null)
+
+            cursor.use {
+                if (it.moveToFirst()) {
+                    count = it.getInt(0)
+                }
+            }
+
+        }
+        return count
+    }
 }

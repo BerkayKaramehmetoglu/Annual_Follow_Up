@@ -2,6 +2,7 @@ package com.example.annual_follow_up.ui.past_product
 
 import RVAdapter
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.annual_follow_up.databinding.FragmentPastProductBinding
+import com.example.annual_follow_up.sqlite.DatabaseHelper
+import com.example.annual_follow_up.sqlite.FollowUpDAO
 
 class PastProductFragment : Fragment() {
 
@@ -18,6 +21,11 @@ class PastProductFragment : Fragment() {
     private lateinit var viewModel: PastProductViewModel
     private lateinit var adapter: RVAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tempViewModel: PastProductViewModel by viewModels()
+        viewModel = tempViewModel
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,16 +44,18 @@ class PastProductFragment : Fragment() {
         binding.rv.setHasFixedSize(true)
         binding.rv.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.products.observe(viewLifecycleOwner) {
-           adapter = RVAdapter(requireContext(),it)
+        viewModel.productsList.observe(viewLifecycleOwner) {
+            adapter = RVAdapter(requireContext(), it)
             binding.rv.adapter = adapter
         }
-    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val tempViewModel : PastProductViewModel by viewModels()
-        viewModel = tempViewModel
+        viewModel.totalProduct.observe(viewLifecycleOwner) {
+
+            val vt = DatabaseHelper(requireContext())
+
+            binding.countProduct.text = FollowUpDAO().totalProduct(vt).toString()
+        }
+
     }
 
     override fun onDestroyView() {
@@ -56,5 +66,6 @@ class PastProductFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.loadProducts()
+        viewModel.totalProducts()
     }
 }

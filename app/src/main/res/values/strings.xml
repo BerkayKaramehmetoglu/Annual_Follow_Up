@@ -16,4 +16,5 @@
     <string name="past_product_sales">Sales:</string>
     <string name="past_product_expense">Expense:</string>
     <string name="past_product_earning">Earning:</string>
+    <string name="past_product_total">Total Product:</string>
 </resources>

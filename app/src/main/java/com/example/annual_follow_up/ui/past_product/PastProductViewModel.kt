@@ -12,18 +12,30 @@ class PastProductViewModel(application: Application) : AndroidViewModel(applicat
 
     private val followUpDAO = FollowUpDAO()
     private var _productList = MutableLiveData<List<FollowUp>>()
+    private var _totalProduct = MutableLiveData<Int>()
 
     init {
         loadProducts()
+        totalProducts()
     }
 
-    val products: LiveData<List<FollowUp>>
+    val productsList: LiveData<List<FollowUp>>
         get() = _productList
+
+    val totalProduct: LiveData<Int>
+        get() = _totalProduct
 
     fun loadProducts() {
         val dbHelper = DatabaseHelper(getApplication())
         val productsFromDb = followUpDAO.allSelectProducts(dbHelper)
         _productList.value = productsFromDb
     }
+
+    fun totalProducts() {
+        val dbHelper = DatabaseHelper(getApplication())
+        val productDb = followUpDAO.totalProduct(dbHelper)
+        _totalProduct.value = productDb
+    }
+
 
 }
