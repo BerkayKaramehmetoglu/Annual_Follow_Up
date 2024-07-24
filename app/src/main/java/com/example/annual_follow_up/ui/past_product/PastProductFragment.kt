@@ -2,7 +2,6 @@ package com.example.annual_follow_up.ui.past_product
 
 import RVAdapter
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,8 +53,20 @@ class PastProductFragment : Fragment() {
             val vt = DatabaseHelper(requireContext())
 
             binding.countProduct.text = FollowUpDAO().totalProduct(vt).toString()
+            limitControl(FollowUpDAO.count)
         }
 
+    }
+
+    private fun limitControl(count: Int): Boolean {
+        val vt = DatabaseHelper(requireContext())
+        return when {
+            count >= 10 -> {
+                FollowUpDAO().deleteTable(vt, "FollowUp")
+                true
+            }
+            else -> false
+        }
     }
 
     override fun onDestroyView() {

@@ -34,19 +34,5 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val vt = DatabaseHelper(this)
-
-        val deneme = FollowUpDAO().allSelectProducts(vt)
-
-        for (k in deneme){
-            Log.e("Product İd",(k.productId.toString()))
-            Log.e("Product Date",(k.productDate))
-            Log.e("Product Name",(k.productName))
-            Log.e("Product Amount",(k.productAmount.toString()))
-            Log.e("Product Sales",(k.productSales.toString()))
-            Log.e("Product Expense",(k.productExpense.toString()))
-            Log.e("Product Earning",(k.productEarning.toString()))
-        }
-
     }
 }

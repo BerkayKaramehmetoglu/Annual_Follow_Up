@@ -1,6 +1,8 @@
 package com.example.annual_follow_up.sqlite
 
 import android.content.ContentValues
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.text.SimpleDateFormat
@@ -8,6 +10,11 @@ import java.util.Locale
 import java.util.Date
 
 class FollowUpDAO {
+
+
+    companion object {
+        var count: Int = 0
+    }
 
     fun insertProducts(
         vt: DatabaseHelper,
@@ -66,8 +73,6 @@ class FollowUpDAO {
 
     fun totalProduct(vt: DatabaseHelper): Int {
 
-        var count = 0
-
         val db = vt.readableDatabase
 
         db.use { database ->
@@ -78,8 +83,19 @@ class FollowUpDAO {
                     count = it.getInt(0)
                 }
             }
-
         }
         return count
+    }
+
+    fun deleteTable(vt: DatabaseHelper, tableName: String) {
+        val db = vt.writableDatabase
+        try {
+            db.execSQL("DELETE FROM $tableName")
+            db.execSQL("VACUUM")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            db.close()
+        }
     }
 }
