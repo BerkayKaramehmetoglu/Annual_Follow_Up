@@ -1,4 +1,4 @@
-package com.example.annual_follow_up.ui.entry_product
+package com.example.annual_follow_up.product_pages.entry_product
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.annual_follow_up.databinding.FragmentEntryProductBinding
 import com.example.annual_follow_up.sqlite.DatabaseHelper
 import com.example.annual_follow_up.sqlite.FollowUpDAO
-import com.google.android.material.snackbar.Snackbar
+import com.example.annual_follow_up.utils.Utils
 
 class EntryProductFragment : Fragment() {
 
@@ -16,6 +16,7 @@ class EntryProductFragment : Fragment() {
     private var _vt: DatabaseHelper? = null
     private var _followUpDao: FollowUpDAO? = null
     private val binding get() = _binding!!
+    private var typeValues = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,8 +37,11 @@ class EntryProductFragment : Fragment() {
     }
 
     private fun registration() {
+        var productType: String?
         _vt = context?.let { DatabaseHelper(it) }
         _followUpDao = FollowUpDAO()
+
+        binding.productKg.setOnClickListener { typeValues = false }
 
         binding.submit.setOnClickListener {
 
@@ -46,44 +50,69 @@ class EntryProductFragment : Fragment() {
             if (!checkLayoutLength(it)) return@setOnClickListener
 
             val productName = binding.productName.text.toString()
-            val productAmount = binding.productAmount.text.toString().toInt()
+            var productAmount = binding.productAmount.text.toString().toDouble()
             val productSales = binding.productSales.text.toString().toInt()
             val productExpense = binding.productExpense.text.toString().toInt()
+            val productDesc = binding.productDesc.text.toString()
+
+            if (!typeValues && binding.productAmount.text.toString().toInt() > 999) {
+                productAmount /= 1000
+                typeValues = true
+            }
+
+            productType = if (typeValues) {
+                binding.productTone.text.toString()
+            } else {
+                binding.productKg.text.toString()
+            }
 
             _vt?.let { vt ->
                 _followUpDao?.insertProducts(
                     vt,
                     productName,
                     productAmount,
+                    productType!!,
                     productSales,
-                    productExpense
+                    productExpense,
+                    productDesc
                 )
             }
 
-            snackBar(it, "Registration completed")
+            Utils.snackBar(it, "Registration completed")
+
+            clearLayout()
         }
     }
-
 
     private fun checkLayoutEmpty(view: View): Boolean {
         return when {
             binding.productName.text.isNullOrBlank() -> {
-                snackBar(view, "Product name cannot be empty")
+                Utils.snackBar(view, "Product name cannot be empty")
                 false
             }
 
             binding.productAmount.text.isNullOrBlank() -> {
-                snackBar(view, "Product amount cannot be empty")
+                Utils.snackBar(view, "Product amount cannot be empty")
+                false
+            }
+
+            binding.productAmount.text.startsWith("0") -> {
+                Utils.snackBar(view, "Invalid product quantity")
                 false
             }
 
             binding.productSales.text.isNullOrBlank() -> {
-                snackBar(view, "Product sales cannot be empty")
+                Utils.snackBar(view, "Product sales cannot be empty")
                 false
             }
 
             binding.productExpense.text.isNullOrBlank() -> {
-                snackBar(view, "Product expense cannot be empty")
+                Utils.snackBar(view, "Product expense cannot be empty")
+                false
+            }
+
+            binding.productDesc.text.isNullOrBlank() -> {
+                Utils.snackBar(view, "Product description cannot be empty")
                 false
             }
 
@@ -95,22 +124,20 @@ class EntryProductFragment : Fragment() {
         return when {
 
             binding.productName.text!!.length > 20 -> {
-                snackBar(view, "The length of the product name cannot be longer than 20")
+                Utils.snackBar(view, "The length of the product name cannot be longer than 20")
                 false
             }
 
-            binding.productAmount.text!!.length > 3 -> {
-                snackBar(view, "Product ton quantity cannot exceed 3 digits")
+            binding.productDesc.text!!.length > 400 -> {
+                Utils.snackBar(
+                    view,
+                    "The length of the product description cannot be longer than 400"
+                )
                 false
             }
 
-            binding.productSales.text!!.length > 9 -> {
-                snackBar(view, "Product sales amount cannot exceed million")
-                false
-            }
-
-            binding.productExpense.text!!.length > 9 -> {
-                snackBar(view, "Product expense amount cannot exceed million")
+            binding.productTone.isChecked && binding.productAmount.text!!.length > 3 -> {
+                Utils.snackBar(view, "Invalid quantity entry for tons")
                 false
             }
 
@@ -118,8 +145,13 @@ class EntryProductFragment : Fragment() {
         }
     }
 
-    fun snackBar(view: View, text: String) {
-        Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show()
+    private fun clearLayout() {
+        binding.productName.text?.clear()
+        binding.productAmount.text?.clear()
+        binding.productSales.text?.clear()
+        binding.productExpense.text?.clear()
+        binding.productDesc.text?.clear()
+        binding.entryProduct.clearFocus()
     }
 
 }

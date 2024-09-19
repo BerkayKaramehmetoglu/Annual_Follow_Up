@@ -5,9 +5,11 @@ data class FollowUp(
     var productId: Int,
     var productDate: String,
     var productName: String,
-    var productAmount: Int,
+    var productAmount: Double,
+    var productType: String,
     var productSales: Int,
     var productExpense: Int,
     var productEarning: Int,
+    var productDesc: String,
 ) {
 }

@@ -1,20 +1,29 @@
 <resources>
-    <string name="app_name">Annual_Follow_Up</string>
+    <string name="app_name">Annual Follow Up</string>
     <string name="title_past_product">Past Product</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Home</string>
     <string name="title_entry_product">Entry Product</string>
 
+    <string name="fragment_past_product">Total Products:</string>
+
     <string name="entry_product_name">Product Name</string>
-    <string name="entry_product_amount">Product Amount (Just Tone)</string>
+    <string name="entry_product_amount">Product Amount</string>
+    <string name="entry_product_tonne">Tonne</string>
+    <string name="entry_product_kilogram">Kilogram</string>
     <string name="entry_product_sales">Product Sales</string>
     <string name="entry_product_expense">Product Expense</string>
+    <string name="entry_product_description">Product Description</string>
     <string name="entry_product_button">SUBMIT</string>
 
     <string name="past_product_date">Date:</string>
     <string name="past_product_name">Name:</string>
-    <string name="past_product_amount">Amount (Tone):</string>
+    <string name="past_product_amount">Amount:</string>
     <string name="past_product_sales">Sales:</string>
     <string name="past_product_expense">Expense:</string>
     <string name="past_product_earning">Earning:</string>
-    <string name="past_product_total">Total Product:</string>
+    <string name="past_product_desc">Description:</string>
+
+    <string name="home_total_name">Product Name</string>
+    <string name="home_total_product">Total Product</string>
+    <string name="home_total_earning">Total Earning</string>
 </resources>

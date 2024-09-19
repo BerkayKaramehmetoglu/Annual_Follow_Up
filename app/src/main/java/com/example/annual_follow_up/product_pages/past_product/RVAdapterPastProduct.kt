@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.annual_follow_up.R
 import com.example.annual_follow_up.sqlite.FollowUp
 
-class RVAdapter(
+class RVAdapterPastProduct(
     private val context: Context,
     private var getAllProducts: List<FollowUp>
 ) :
-    RecyclerView.Adapter<RVAdapter.CardViewHolder>() {
+    RecyclerView.Adapter<RVAdapterPastProduct.CardViewHolder>() {
 
     inner class CardViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val productDate: TextView = view.findViewById(R.id.productDate)
@@ -21,6 +21,8 @@ class RVAdapter(
         val productSales: TextView = view.findViewById(R.id.productSales)
         val productExpense: TextView = view.findViewById(R.id.productExpense)
         val productEarning: TextView = view.findViewById(R.id.productEarning)
+        val productDesc: TextView = view.findViewById(R.id.productDesc)
+        val id: TextView = view.findViewById(R.id.productId)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -37,10 +39,12 @@ class RVAdapter(
 
         holder.productDate.text = product.productDate
         holder.productName.text = product.productName
-        holder.productAmount.text = product.productAmount.toString()
+        holder.productAmount.text = product.productAmount.toString().plus(" " + product.productType)
         holder.productSales.text = product.productSales.toString()
         holder.productExpense.text = product.productExpense.toString()
         holder.productEarning.text = product.productEarning.toString()
+        holder.productDesc.text = product.productDesc
+        holder.id.text = product.productId.toString()
 
         setProductEarningColor(holder.productEarning, product.productEarning)
     }

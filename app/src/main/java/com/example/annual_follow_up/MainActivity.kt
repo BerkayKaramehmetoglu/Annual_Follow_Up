@@ -1,16 +1,11 @@
 package com.example.annual_follow_up
 
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.annual_follow_up.databinding.ActivityMainBinding
-import com.example.annual_follow_up.sqlite.DatabaseHelper
-import com.example.annual_follow_up.sqlite.FollowUpDAO
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,12 +21,6 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_past_product, R.id.navigation_dashboard, R.id.navigation_entry_product
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
     }

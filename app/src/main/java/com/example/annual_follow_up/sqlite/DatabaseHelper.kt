@@ -16,9 +16,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper
                         "product_date TEXT," +
                         "product_name TEXT," +
                         "product_amount INTEGER," +
+                        "product_type TEXT," +
                         "product_sales INTEGER," +
                         "product_expense INTEGER," +
-                        "product_earning INTEGER);"
+                        "product_earning INTEGER," +
+                        "product_desc TEXT);"
             )
         } catch (e: SQLiteException) {
             throw e
@@ -27,12 +29,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         try {
-            if (oldVersion < newVersion) {
-                db?.execSQL("ALTER TABLE followUp ADD COLUMN product_earning INTEGER NOT NULL DEFAULT 0")
-            } else {
-                db?.execSQL("DROP TABLE IF EXISTS follow_up")
-                onCreate(db)
-            }
+            db?.execSQL("DROP TABLE IF EXISTS follow_up")
+            onCreate(db)
         } catch (e: SQLiteException) {
             throw e
         }
