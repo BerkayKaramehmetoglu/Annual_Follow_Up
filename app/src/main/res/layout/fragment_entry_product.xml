@@ -6,18 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".product_pages.entry_product.EntryProductFragment"
-    android:padding="15dp">
+    android:padding="15dp"
+    tools:context=".product_pages.entry_product.EntryProductFragment">
 
     <EditText
         android:id="@+id/productName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:background="@drawable/rounded_corner"
         android:ems="10"
-        android:textSize="20sp"
         android:hint="@string/entry_product_name"
         android:inputType="text"
+        android:padding="15dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/productType"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,10 +28,11 @@
         android:id="@+id/productAmount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:background="@drawable/rounded_corner"
         android:ems="10"
         android:hint="@string/entry_product_amount"
         android:inputType="number"
+        android:padding="15dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/productSales"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +42,8 @@
         android:id="@+id/productType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:background="@drawable/rounded_corner"
+        android:padding="15dp"
         app:layout_constraintBottom_toTopOf="@+id/productSales"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/productAmount"
@@ -50,16 +53,18 @@
             android:id="@+id/productTone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/green"
             android:checked="true"
             android:text="@string/entry_product_tonne"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/productKg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/green"
             android:text="@string/entry_product_kilogram"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
     </RadioGroup>
 
@@ -67,11 +72,12 @@
         android:id="@+id/productSales"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:background="@drawable/rounded_corner"
         android:ems="10"
-        android:textSize="20sp"
         android:hint="@string/entry_product_sales"
         android:inputType="number"
+        android:padding="15dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/productExpense"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,11 +87,12 @@
         android:id="@+id/productExpense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:background="@drawable/rounded_corner"
         android:ems="10"
-        android:textSize="20sp"
         android:hint="@string/entry_product_expense"
         android:inputType="number"
+        android:padding="15dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/productDesc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,37 +102,30 @@
         android:id="@+id/productDesc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:background="@drawable/rounded_corner"
         android:ems="10"
-        android:textSize="20sp"
         android:hint="@string/entry_product_description"
         android:inputType="text|textMultiLine"
+        android:lines="4"
+        android:overScrollMode="ifContentScrolls"
+        android:padding="15dp"
+        android:scrollbars="vertical"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productExpense"
-        android:overScrollMode="ifContentScrolls"
-        android:scrollbars="vertical"
-        android:lines="5"/>
+        app:layout_constraintTop_toBottomOf="@+id/productExpense" />
 
     <Button
         android:id="@+id/submit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:backgroundTint="@color/green"
+        android:padding="15dp"
         android:text="@string/entry_product_button"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productDesc" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productDesc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

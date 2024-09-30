@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.query.observe(viewLifecycleOwner) { productList ->
-            val barEntries = arrayListOf<BarEntry >()
+            val barEntries = arrayListOf<BarEntry>()
             val productNames = arrayListOf<String>()
 
             productList.forEachIndexed { index, product ->
